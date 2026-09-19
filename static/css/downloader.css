@@ -45,12 +45,11 @@
 }
 
 .dl-input-wrap {
-    background: rgba(20, 20, 26, 0.82);
     border: 1px solid rgba(var(--overlay-rgb), 0.10);
     border-radius: 18px;
     backdrop-filter: blur(12px);
     transition: border-color 0.2s ease, box-shadow 0.25s ease;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.9);
 }
 
 .dl-input-wrap:focus-within {
@@ -75,7 +74,7 @@
 
 .dl-form textarea::placeholder {
     color: var(--text-dim);
-    font-family: var(--font);
+    font-family: var(--mono);
     letter-spacing: 0;
 }
 
@@ -85,33 +84,12 @@
     gap: 10px;
     justify-content: flex-end;
     padding: 10px 14px 14px;
-}
-
-.dl-paste-btn {
-    display: inline;
-    align-items: center;
-    justify-content: center;
-    gap: 7px;
-    min-width: 82px;
-    min-height: 44px;
-    padding: 10px 14px;
-    border: 1px solid rgba(var(--overlay-rgb), 0.14);
-    border-radius: 999px;
-    background: rgba(var(--overlay-rgb), 0.045);
-    color: var(--text-main);
-    font: 700 0.82rem/1 var(--font);
-    cursor: pointer;
-    transition: background-color 160ms ease, border-color 160ms ease, transform 120ms ease;
+    justify-content: space-between;
 }
 
 .dl-paste-btn svg {
     width: 16px;
     height: 16px;
-}
-
-.dl-paste-btn:hover {
-    border-color: rgba(var(--overlay-rgb), 0.28);
-    background: rgba(var(--overlay-rgb), 0.085);
 }
 
 .dl-paste-btn:active {
@@ -129,6 +107,7 @@
     outline-offset: 3px;
 }
 
+.dl-paste-btn,
 .dl-btn-primary {
     display: inline-flex;
     align-items: center;
@@ -149,6 +128,7 @@
     transition: transform 0.12s ease, box-shadow 0.2s ease, background 0.15s ease;
 }
 
+.dl-paste-btn:hover,
 .dl-btn-primary:hover {
     background: #fff;
     transform: translateY(-1px);
@@ -271,7 +251,7 @@
 .tool-example button {
     min-height: 30px;
     padding: 6px 11px;
-    border: 1px solid rgba(var(--overlay-rgb), 0.15);
+    border: 1px solid #000000;
     border-radius: 999px;
     background: rgba(var(--overlay-rgb), 0.055);
     color: var(--text-main);

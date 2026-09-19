@@ -29,7 +29,7 @@ Free Ai Songs Downloader - Rana Universe
     <form class="dl-form" id="dl-form" autocomplete="off">
       <div class="dl-input-wrap">
         <textarea id="dl-input" name="url"
-          placeholder="🎵 Paste your song link here…&#10;🔗 Example: https://suno.com/s/abc123xyz" spellcheck="false"
+          placeholder="🎵 Paste your song link here&#10;🔗 Example: https://suno.com/s/abc123xyz" spellcheck="false"
           aria-label="Suno song URL" rows="3"></textarea>
         <div class="dl-input-bar">
           <button type="button" class="dl-paste-btn" id="dl-paste" aria-label="Paste a Suno link from the clipboard">
@@ -38,7 +38,9 @@ Free Ai Songs Downloader - Rana Universe
               <rect x="6" y="5" width="12" height="16" rx="2" />
               <path d="M9 5V3h6v2M9 9h6" />
             </svg>
-            <span id="dl-paste-label">Paste</span>
+            <span id="dl-paste-label">
+              Paste
+            </span>
           </button>
           <button type="submit" class="dl-btn-primary" id="dl-submit" aria-label="Find download options">
             <span class="dl-submit-spinner" aria-hidden="true">
@@ -54,11 +56,12 @@ Free Ai Songs Downloader - Rana Universe
 
             <span class="dl-submit-label-wide">Download Song</span>
             <span class="dl-submit-label-compact">Download Song</span>
-
           </button>
         </div>
       </div>
     </form>
+
+
     <div class="tool-example" aria-label="Example Suno song link">
       <span>Demo Example:</span>
       <a id="dl-example-link" href="https://suno.com/s/kuuNnXWLBeiaN1wU" target="_blank" rel="noopener">
@@ -270,7 +273,7 @@ Free Ai Songs Downloader - Rana Universe
     aria-describedby="dl-playlist-modal-description" tabindex="-1">
     <button type="button" class="dl-modal-close" id="dl-playlist-modal-close"
       aria-label="Close playlist notice">×</button>
-    <p class="dl-modal-kicker">Playlist link detected</p>
+    <p class="dl-modal-kicker">Playlist Not Supported</p>
     <h2 id="dl-playlist-modal-title">This is a Suno playlist link</h2>
     <h3>Please Subscribe To Pro Version To Download All Songs quickly</h3>
     <p id="dl-playlist-modal-description">The single-song downloader handles one song at a time. Open the playlist

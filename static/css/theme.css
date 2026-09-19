@@ -829,3 +829,37 @@ a.card-link {
 .prose ul {
     padding-left: 1.25em;
 }
+
+
+@keyframes waveAnimation {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    20% {
+        transform: rotate(14deg);
+    }
+
+    40% {
+        transform: rotate(-8deg);
+    }
+
+    60% {
+        transform: rotate(14deg);
+    }
+
+    80% {
+        transform: rotate(-4deg);
+    }
+
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+.waving-hand {
+    display: inline-block;
+    animation: waveAnimation 2.2s infinite ease-in-out;
+    transform-origin: 70% 70%;
+    /* Keeps it pivoting naturally from the wrist */
+}
