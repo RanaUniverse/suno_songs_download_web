@@ -19,19 +19,6 @@
     min-width: 0;
 }
 
-.dl-stage {
-    text-align: center;
-    padding: 36px 0 24px;
-}
-
-@media (max-width: 560px) {
-
-    .dl-stage {
-        padding-top: 24px;
-        padding-bottom: 18px;
-    }
-}
-
 .dl-kicker {
     display: inline-flex;
     align-items: center;
@@ -51,22 +38,6 @@
 .dl-kicker svg {
     width: 12px;
     height: 12px;
-}
-
-.dl-stage h1 {
-    margin: 0 0 10px;
-    font-size: clamp(1.8rem, 4vw, 2.4rem);
-    letter-spacing: -0.03em;
-    line-height: 1.1;
-    color: var(--heading);
-}
-
-.dl-stage .sub {
-    margin: 0 auto 22px;
-    max-width: 64ch;
-    color: var(--text-muted);
-    font-size: 1rem;
-    line-height: 1.55;
 }
 
 .dl-form {
@@ -1040,11 +1011,12 @@
 }
 
 /* Keep touch feedback intentional instead of letting mobile browsers paint a full blue tap highlight. */
-.dl-chip {
+
+/* .dl-chip {
     -webkit-tap-highlight-color: transparent;
     -webkit-touch-callout: none;
     touch-action: manipulation;
-}
+} */
 
 .dl-chip:focus:not(:focus-visible) {
     outline: none;
@@ -1052,6 +1024,7 @@
 
 .dl-chip:focus-visible {
     outline: 3px solid var(--focus-ring);
+    /* outline: 3px solid blue; */
     outline-offset: 3px;
 }
 
@@ -1101,7 +1074,6 @@ button[aria-expanded="true"] .dl-help-arrow {
 
 .dl-modal-card {
     position: relative;
-    width: min(100%, 440px);
     padding: 28px;
     border: 1px solid rgba(255, 168, 77, 0.45);
     border-radius: 20px;
@@ -1112,14 +1084,6 @@ button[aria-expanded="true"] .dl-help-arrow {
     transition: transform 180ms cubic-bezier(0.23, 1, 0.32, 1), opacity 180ms ease;
 }
 
-#dl-audio-format-modal .dl-modal-card {
-    background: var(--control-bg);
-    max-height: calc(100vh - 24px);
-    max-height: calc(100dvh - 24px);
-    overflow-y: auto;
-    overscroll-behavior: contain;
-    scrollbar-width: thin;
-}
 
 .dl-modal-kicker {
     margin: 0 0 10px;
@@ -1130,6 +1094,7 @@ button[aria-expanded="true"] .dl-help-arrow {
 }
 
 .dl-modal-card h2 {
+    font-weight: 900;
     margin: 0 34px 10px 0;
     color: var(--heading);
     font-size: clamp(1.35rem, 4vw, 1.75rem);
@@ -1216,13 +1181,13 @@ button[aria-expanded="true"] .dl-help-arrow {
 }
 
 .dl-audio-format-choice:hover {
-    transform: translateY(-1px);
-    border-color: rgba(255, 168, 77, 0.52);
+    /* transform: translateY(-1px); */
+    /* border-color: rgba(255, 168, 77, 0.52); */
     background: rgba(255, 168, 77, 0.07);
 }
 
 .dl-audio-format-choice:focus-visible {
-    outline: 3px solid rgba(255, 168, 77, 0.42);
+    /* outline: 3px solid rgba(255, 168, 77, 0.42); */
     outline-offset: 3px;
 }
 
@@ -1489,89 +1454,6 @@ body.dl-modal-open {
         display: none;
     }
 
-    #dl-audio-format-modal {
-        padding: 8px;
-    }
-
-    #dl-audio-format-modal .dl-modal-card {
-        max-height: calc(100vh - 16px);
-        max-height: calc(100dvh - 16px);
-        padding: 18px 16px 14px;
-        border-radius: 18px;
-    }
-
-    #dl-audio-format-modal .dl-modal-kicker {
-        margin-bottom: 6px;
-    }
-
-    #dl-audio-format-modal .dl-modal-card h2 {
-        margin: 0 38px 6px 0;
-        font-size: clamp(1.3rem, 6.4vw, 1.55rem);
-    }
-
-    #dl-audio-format-modal .dl-modal-card p:not(.dl-modal-kicker) {
-        font-size: 0.82rem;
-        line-height: 1.42;
-    }
-
-    #dl-audio-format-modal .dl-modal-close {
-        top: 10px;
-        right: 10px;
-        width: 34px;
-        height: 34px;
-    }
-
-    #dl-audio-format-modal {
-        gap: 8px;
-        margin-top: 14px;
-    }
-
-    #dl-audio-format-modal .dl-audio-format-choice {
-        min-height: 68px;
-        padding: 10px 12px;
-        gap: 10px;
-        border-radius: 14px;
-    }
-
-    #dl-audio-format-modal .dl-audio-format-choice strong {
-        flex-basis: 78px;
-        font-size: 1rem;
-    }
-
-    #dl-audio-format-modal .dl-audio-format-choice span {
-        font-size: 0.73rem;
-        line-height: 1.36;
-    }
-}
-
-@media (max-height: 520px) {
-    #dl-audio-format-modal .dl-modal-card {
-        padding: 13px 14px 12px;
-    }
-
-    #dl-audio-format-modal .dl-modal-kicker {
-        display: none;
-    }
-
-    #dl-audio-format-modal .dl-modal-card h2 {
-        margin-bottom: 4px;
-        font-size: 1.22rem;
-    }
-
-    #dl-audio-format-modal .dl-modal-card p:not(.dl-modal-kicker) {
-        font-size: 0.76rem;
-        line-height: 1.32;
-    }
-
-    #dl-audio-format-modal {
-        gap: 6px;
-        margin-top: 10px;
-    }
-
-    #dl-audio-format-modal .dl-audio-format-choice {
-        min-height: 60px;
-        padding-block: 8px;
-    }
 }
 
 @media (prefers-reduced-motion: reduce) {
