@@ -583,7 +583,7 @@
 
 .song-hero-suno:hover {
     color: var(--heading);
-    border-color: rgba(var(--overlay-rgb), 0.3);
+    border-color: red;
 }
 
 .song-hero-suno svg {
@@ -1089,11 +1089,6 @@ button[aria-expanded="true"] .dl-help-arrow {
     outline-offset: 3px;
 }
 
-.dl-audio-format-choice strong {
-    /* flex: 0 0 104px; */
-    color: var(--heading);
-    font: 800 1.05rem/1.2 var(--font);
-}
 
 .dl-audio-format-choice span {
     color: var(--text-muted);
@@ -1119,13 +1114,15 @@ button[aria-expanded="true"] .dl-help-arrow {
 /* Format title */
 .dl-audio-options .dl-audio-format-choice strong {
     color: red;
+    font-weight: 900;
 }
 
 
 /* Description */
-.dl-audio-options .dl-audio-format-choice>span:not(.dl-chip-sub) {
+.dl-audio-options .dl-audio-format-choice>span.small {
     font-size: 13px;
     line-height: 1.5;
+    color: green;
 }
 
 /* Download status */

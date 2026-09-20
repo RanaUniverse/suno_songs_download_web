@@ -28,7 +28,7 @@ How my buttons will looks like
     class="dl-chip dl-audio-format-choice text-start rounded-4 d-flex flex-column gap-1 shadow-sm border border-3 border-primary"
     data-kind="audio" data-audio-format="{{ format }}" title="{{ title }}">
     <strong>{{ heading }}</strong>
-    <span class="small text-muted">{{ desc }}</span>
+    <span class="small">{{ desc }}</span>
     <span class="dl-chip-sub">{{ sub }}</span>
 </button>
 {% endmacro %}
@@ -42,19 +42,20 @@ How my buttons will looks like
         <!-- Audio Options Groups -->
         <div class="dl-audio-options d-flex flex-column gap-2">
 
-            {{ render_audio_btn('original', 'Download original Audio', '⚡ Original Audio', 'Fastest. Keeps the original
-            audio format and quality unchanged.', 'Original') }}
+            {{ render_audio_btn('original', 'Download original Audio', '⚡ Original Audio', '🚀 Maximum speed & raw
+            fidelity. Keeps the exact original stream format, codec, and audio quality completely untouched.',
+            'Original') }}
 
-            {{ render_audio_btn('mp3', 'Download MP3 audio', '🎵 MP3', 'Most compatible. Includes available title,
-            creator, style, cover art and lyrics.', 'MP3') }}
+            {{ render_audio_btn('mp3', 'Download MP3 audio', '🎵 MP3 Audio', '🎧 Universally compatible across all
+            devices. Includes embedded song title, artist creator, style tags, cover art, and lyrics.', 'MP3') }}
 
-            {{ render_audio_btn('wav', 'Download WAV audio', '🎧 WAV', 'Uncompressed for editing. Higher quality, but
-            the file is much larger.', 'WAV') }}
-
+            {{ render_audio_btn('wav', 'Download WAV audio', '🎧 WAV Master', 'studio Studio-grade uncompressed audio.
+            Perfect for professional editing or remixing, though file sizes are much larger.', 'WAV') }}
         </div>
 
 
-        <button type="button" class="dl-chip border border-3 border-danger" data-kind="mp4" id="dl-chip-mp4" title="Download MP4 video">
+        <button type="button" class="dl-chip border border-3 border-danger" data-kind="mp4" id="dl-chip-mp4"
+            title="Download MP4 video">
             <span class="dl-chip-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
                     stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                     <rect x="3" y="6" width="18" height="12" rx="2" />
