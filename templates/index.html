@@ -54,8 +54,8 @@ Free Ai Songs Downloader - Rana Universe
               <path d="M5 20h14" />
             </svg>
 
-            <span class="dl-submit-label-wide">Download Song</span>
-            <span class="dl-submit-label-compact">Download Song</span>
+            <span class="dl-submit-label-wide d-inline d-md-none">Download</span>
+            <span class="dl-submit-label-compact d-none d-md-inline">Download Song</span>
           </button>
         </div>
       </div>
@@ -63,7 +63,7 @@ Free Ai Songs Downloader - Rana Universe
 
 
     <div class="tool-example" aria-label="Example Suno song link">
-      <span>Demo Example:</span>
+      <span>A Demo Song:</span>
       <a id="dl-example-link" href="https://suno.com/s/kuuNnXWLBeiaN1wU" target="_blank" rel="noopener">
         https://suno.com/s/kuuNnXWLBeiaN1wU
       </a>
@@ -72,25 +72,17 @@ Free Ai Songs Downloader - Rana Universe
       </button>
     </div>
 
+    {#
+    Below here will shows the songs information
+    #}
     <p class="dl-form-hint" id="dl-status" role="status" aria-live="polite">
     </p>
-
-
 
     </section>
 
     <article class="song-hero dl-hidden" id="dl-hero" aria-live="polite">
+
       <div class="song-hero-actions">
-        <a class="song-hero-analyze" id="dl-analyze-song" href="/tools/parser/" aria-label="Analyze this song">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
-            stroke-linejoin="round" aria-hidden="true">
-            <path d="M4 19V9" />
-            <path d="M10 19V5" />
-            <path d="M16 19v-7" />
-            <path d="M22 19H2" />
-          </svg>
-          Analyze
-        </a>
 
         <a class="song-hero-suno" id="dl-open-song" target="_blank" rel="noopener" aria-label="Open on Suno">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
@@ -101,6 +93,7 @@ Free Ai Songs Downloader - Rana Universe
           </svg>
           on Suno
         </a>
+
       </div>
 
       <div class="song-hero-top">

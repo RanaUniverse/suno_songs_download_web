@@ -19,27 +19,6 @@
     min-width: 0;
 }
 
-.dl-kicker {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 6px 14px;
-    border-radius: 999px;
-    background: rgba(var(--overlay-rgb), 0.04);
-    border: 1px solid rgba(var(--overlay-rgb), 0.12);
-    color: var(--text-muted);
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    margin-bottom: 18px;
-}
-
-.dl-kicker svg {
-    width: 12px;
-    height: 12px;
-}
-
 .dl-form {
     position: relative;
 }
@@ -190,20 +169,6 @@
     display: none;
 }
 
-@media (max-width: 560px) {
-    .dl-paste-btn {
-        display: inline-flex;
-        margin-right: auto;
-    }
-
-    .dl-submit-label-wide {
-        display: none;
-    }
-
-    .dl-submit-label-compact {
-        display: inline;
-    }
-}
 
 .dl-form-hint {
     margin: 12px 0 0;
@@ -271,7 +236,7 @@
     margin: 28px 0 18px;
     padding: 28px;
     border-radius: 22px;
-    border: 1px solid rgba(var(--overlay-rgb), 0.08);
+    border: 10px solid rgba(var(--overlay-rgb), 0.08);
     background: linear-gradient(180deg, rgba(20, 20, 24, 0.85), rgba(12, 12, 15, 0.92));
     overflow: hidden;
     isolation: isolate;
@@ -602,8 +567,7 @@
     gap: 8px;
 }
 
-.song-hero-suno,
-.song-hero-analyze {
+.song-hero-suno {
     display: inline-flex;
     align-items: center;
     gap: 5px;
@@ -618,22 +582,16 @@
     transition: color 0.15s ease, border-color 0.15s ease;
 }
 
-.song-hero-suno:hover,
-.song-hero-analyze:hover {
+.song-hero-suno:hover {
     color: var(--heading);
     border-color: rgba(var(--overlay-rgb), 0.3);
 }
 
-.song-hero-suno svg,
-.song-hero-analyze svg {
+.song-hero-suno svg {
     width: 12px;
     height: 12px;
 }
 
-.song-hero-analyze {
-    border-color: rgba(126, 229, 151, 0.24);
-    color: var(--success-text);
-}
 
 @media (max-width: 560px) {
     .song-hero-actions {
@@ -645,8 +603,7 @@
         border-bottom: 1px solid rgba(var(--overlay-rgb), 0.09);
     }
 
-    .song-hero-suno,
-    .song-hero-analyze {
+    .song-hero-suno {
         min-height: 28px;
         padding: 5px 9px;
         border-radius: 9px;
@@ -992,11 +949,6 @@
 
 /* Keep touch feedback intentional instead of letting mobile browsers paint a full blue tap highlight. */
 
-/* .dl-chip {
-    -webkit-tap-highlight-color: transparent;
-    -webkit-touch-callout: none;
-    touch-action: manipulation;
-} */
 
 .dl-chip:focus:not(:focus-visible) {
     outline: none;

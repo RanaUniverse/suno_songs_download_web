@@ -42,7 +42,6 @@
     var detailsToggleLabel = document.getElementById("dl-details-toggle-label");
     var tagsEl = document.getElementById("dl-tags");
     var openSong = document.getElementById("dl-open-song");
-    var analyzeSong = document.getElementById("dl-analyze-song");
     var previewSec = document.getElementById("dl-preview");
     var audioEl = document.getElementById("dl-audio");
     var audioWrap = audioEl ? audioEl.closest(".dl-audio-wrap") : null;
@@ -56,7 +55,6 @@
     var nextStepsClose = document.getElementById("dl-next-steps-close");
     var nextStepsDismiss = document.getElementById("dl-next-steps-dismiss");
     var nextStepsDescription = document.getElementById("dl-next-steps-description");
-    var nextAnalyze = document.getElementById("dl-next-analyze");
     var nextCreator = document.getElementById("dl-next-creator");
     var nextLyricMv = document.getElementById("dl-next-lyric-mv");
     var audioFormatModal = document.getElementById("dl-audio-format-modal");
@@ -264,14 +262,11 @@
     }
 
     function showDownloadSuccess(downloadType) {
-        if (!nextStepsModal || !nextStepsDialog || !currentId || analyzeSong.classList.contains("dl-hidden")) return;
+        if (!nextStepsModal || !nextStepsDialog || !currentId) return;
         if (nextStepsShownForId === currentId) return;
         nextStepsShownForId = currentId;
         nextStepsDownloadType = normalizeNextStepsDownloadType(downloadType);
         nextStepsReturnFocus = document.activeElement;
-
-        nextAnalyze.hidden = analyzeSong.classList.contains("dl-hidden");
-        nextAnalyze.href = analyzeSong.href;
         nextCreator.hidden = !currentCreatorHandle;
         nextCreator.href = currentCreatorHandle
             ? "/tools/profile-downloader/?profile=" + encodeURIComponent(currentCreatorHandle) + "&view=insights"
@@ -815,8 +810,6 @@
         detailsDisclosure.classList.add("is-loading");
         setDetailsExpanded(false);
         openSong.href = id.indexOf("h:") === 0 ? "https://suno.com/hook/" + id.slice(2) : id.indexOf("s:") === 0 ? "https://suno.com/s/" + id.slice(2) : "https://suno.com/song/" + id;
-        analyzeSong.classList.toggle("dl-hidden", id.indexOf("h:") === 0);
-        analyzeSong.href = "/tools/parser/?url=" + encodeURIComponent(openSong.href);
         coverEl.src = DL_COVER_PLACEHOLDER;
         coverEl.alt = "";
         hero.style.setProperty("--cover-url", "none");
@@ -833,9 +826,6 @@
         currentTitle = clip.title || "";
         titleEl.textContent = clip.title || currentId;
         openSong.href = clip._hook && clip.hook_id ? "https://suno.com/hook/" + clip.hook_id : "https://suno.com/song/" + currentId;
-        analyzeSong.classList.toggle("dl-hidden", Boolean(clip._hook));
-        analyzeSong.href = "/tools/parser/?url=" + encodeURIComponent(openSong.href);
-
         var display = clip.display_name || clip.handle || "";
         currentArtist = display;
         currentCreatorHandle = normalizeCreatorHandle(clip.handle);
@@ -1465,7 +1455,7 @@
     if (nextStepsDismiss) nextStepsDismiss.addEventListener("click", function () {
         closeNextSteps(true, "not_now");
     });
-    [nextAnalyze, nextCreator, nextLyricMv].forEach(function (link) {
+    [nextCreator, nextLyricMv].forEach(function (link) {
         if (!link) return;
         link.addEventListener("click", function () {
             trackNextStepsEvent("download_next_steps_click", link.getAttribute("data-next-step-action"));
