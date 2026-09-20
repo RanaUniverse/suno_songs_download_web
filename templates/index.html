@@ -91,7 +91,7 @@ Free Ai Songs Downloader - Rana Universe
             <path d="M20 4L10 14" />
             <path d="M18 13v5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h5" />
           </svg>
-          on Suno
+          Open Suno
         </a>
 
       </div>
@@ -118,19 +118,26 @@ Free Ai Songs Downloader - Rana Universe
           </div>
         </div>
       </div>
+
     </article>
 
+
     <section class="dl-section dl-hidden" id="dl-download-section">
-      <p class="dl-section-label">Download This Song Below</p>
+      <p class="dl-section-label">
+        Please Choose Any Option Below:
+      </p>
 
-      <div class="dl-rail" id="dl-rail">
+      <div class="d-flex flex-column gap-3" id="dl-rail">
 
-        <div class="dl-audio-options">
+        <!-- Audio Options Groups -->
 
-          <button type="button" class="dl-chip dl-audio-format-choice " data-kind="audio" data-audio-format="original"
-            title="Download original audio">
+        <div class="dl-audio-options d-flex flex-column gap-2">
+
+          <button type="button"
+            class="dl-chip dl-audio-format-choice btn text-start rounded-4 d-flex flex-column gap-1 shadow-sm"
+            data-kind="audio" data-audio-format="original" title="Download original audio">
             <strong>⚡ Original Audio</strong>
-            <span>
+            <span class="small text-muted">
               Fastest. Keeps the original audio format and quality unchanged.
             </span>
             <span class="dl-chip-sub">
@@ -139,10 +146,11 @@ Free Ai Songs Downloader - Rana Universe
           </button>
 
 
-          <button type="button" class="dl-chip dl-audio-format-choice" data-kind="audio" data-audio-format="mp3"
-            title="Download MP3 audio">
+          <button type="button"
+            class="dl-chip dl-audio-format-choice btn text-start rounded-4 d-flex flex-column gap-1 shadow-sm"
+            data-kind="audio" data-audio-format="mp3" title="Download MP3 audio">
             <strong>🎵 MP3</strong>
-            <span>
+            <span class="small text-muted">
               Most compatible. Includes available title, creator, style, cover art and lyrics.
             </span>
             <span class="dl-chip-sub">
@@ -151,18 +159,17 @@ Free Ai Songs Downloader - Rana Universe
           </button>
 
 
-          <button type="button" class="dl-chip dl-audio-format-choice" data-kind="audio" data-audio-format="wav"
-            title="Download WAV audio">
+          <button type="button"
+            class="dl-chip dl-audio-format-choice btn text-start rounded-4 d-flex flex-column gap-1 shadow-sm"
+            data-kind="audio" data-audio-format="wav" title="Download WAV audio">
             <strong>🎧 WAV</strong>
-            <span>
+            <span class="small text-muted">
               Uncompressed for editing. Higher quality, but the file is much larger.
             </span>
             <span class="dl-chip-sub">
               WAV
             </span>
           </button>
-
-
         </div>
 
 
@@ -209,8 +216,11 @@ Free Ai Songs Downloader - Rana Universe
             <path d="M12 8v5" />
             <path d="M12 16h.01" />
           </svg>
-          <span><strong>No video for this item.</strong> Suno only published audio for this item. You can still
-            download MP3, WAV or original audio and cover art above, or click Video to make a lyric MV.</span>
+          <span>
+            <strong>🎬 No video available.</strong> Suno only published audio for this track. No worries though! You can
+            still grab your 🎵 MP3, 🎧 WAV, ⚡ original audio, and 🖼️ cover art above, or click <strong>Video</strong>
+            to spin up a lyric MV! ✨
+          </span>
         </p>
       </div>
     </section>
@@ -265,7 +275,7 @@ Free Ai Songs Downloader - Rana Universe
   <div class="dl-modal-card" role="dialog" aria-modal="true" aria-labelledby="dl-playlist-modal-title"
     aria-describedby="dl-playlist-modal-description" tabindex="-1">
     <button type="button" class="dl-modal-close" id="dl-playlist-modal-close"
-      aria-label="Close playlist notice">×</button>
+      aria-label="Close playlist notice">x</button>
     <p class="dl-modal-kicker">Playlist Not Supported</p>
     <h2 id="dl-playlist-modal-title">This is a Suno playlist link</h2>
     <h3>Please Subscribe To Pro Version To Download All Songs quickly</h3>
