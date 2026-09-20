@@ -20,6 +20,7 @@
     --max: 1100px;
     --font: "Outfit", system-ui, sans-serif;
     --mono: "Space Mono", ui-monospace, monospace;
+    --background-color: #d1d2d3
 }
 
 *,
@@ -44,7 +45,7 @@ body {
     flex-direction: column;
     overflow-x: hidden;
     position: relative;
-    background: #d1d2d3;
+    background: var(--background-color);
 }
 
 
