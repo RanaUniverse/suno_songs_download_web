@@ -2,12 +2,11 @@
 (function (root) {
     "use strict";
 
-    // var RIGHTS_URL = "https://yellow-salad.aibiei.com/rights";
-    var RIGHTS_URL = "/api/RanaUniverse/rights";
-    var AUDIO_BASE_URL = "https://d2lwuy8qc234o3.cloudfront.net/1/clip/";
-    var CONTENT_TYPE = "clip";
-    var AES_BLOCK_BYTES = 16;
-    var UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+    var RIGHTS_URL = window.RANA_CONFIG.RIGHTS_URL;
+    var AUDIO_BASE_URL = window.RANA_CONFIG.AUDIO_BASE_URL;
+    var CONTENT_TYPE = window.RANA_CONFIG.CONTENT_TYPE;
+    var AES_BLOCK_BYTES = window.RANA_CONFIG.AES_BLOCK_BYTES;
+    var UUID_RE = window.RANA_CONFIG.UUID_RE;
 
     function assertSupported() {
         if (!root.crypto || !root.crypto.subtle) {

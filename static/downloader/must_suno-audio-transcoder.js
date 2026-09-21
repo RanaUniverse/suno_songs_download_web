@@ -2,7 +2,7 @@
 (function (root) {
     "use strict";
 
-    var LAME_URL = "https://cdn.jsdelivr.net/npm/lamejs@1.2.1/lame.min.js";
+    var LAME_URL = window.RANA_CONFIG.LAME_URL;
     var OPUS_FALLBACK_URL = "/tools/downloader/suno-opus-mp4-fallback.js?v=999048db6939";
     var lamePromise = null;
     var opusFallbackPromise = null;

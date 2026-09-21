@@ -2,7 +2,8 @@
 (function (root) {
     "use strict";
 
-    var WRITER_URL = "https://cdn.jsdelivr.net/npm/browser-id3-writer@4.4.0/dist/browser-id3-writer.min.js";
+    var WRITER_URL = window.RANA_CONFIG.WRITER_URL;
+
     var writerPromise = null;
 
     function ensureWriter() {
@@ -12,6 +13,7 @@
             var script = root.document.createElement("script");
             script.src = WRITER_URL;
             script.async = true;
+
             script.onload = function () {
                 if (typeof root.ID3Writer === "function") resolve(root.ID3Writer);
                 else reject(new Error("MP3 information writer did not load."));

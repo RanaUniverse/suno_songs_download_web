@@ -1,6 +1,6 @@
 // static/js/rana_universe.js
 // Here i will keep all the necessary js things 
-
+// These are for own later logics to change
 
 document.addEventListener("DOMContentLoaded", function () {
     var navbar = document.querySelector(".navbar");

@@ -26,7 +26,6 @@
     var SHORT_RE = /suno\.com\/s\/([A-Za-z0-9_-]+)/i;
     var HOOK_RE = /suno\.com\/hook\/([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})/i;
 
-    // var DEFAULT_PROXY = "https://sunoapi.aibiei.com/proxy?url=";
     var DEFAULT_PROXY = "/api/suno/proxy?url=";
     var HOOK_API = "https://studio-api-prod.suno.com/api/video/hooks/";
 
