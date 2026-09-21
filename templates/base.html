@@ -25,22 +25,7 @@ for now the identity are going from here
 
 
     {% block head_meta %}
-
-    <meta name="description"
-        content="First Without Any Account You Can try how our service works then you can come and check how to download songs in free of cost?" />
-    <link rel="canonical" href="https://github.com/RanaUniverse" />
-    <meta name="robots" content="index, follow, max-image-preview:large" />
-
-    <meta property="og:title" content="Free Ai Songs Downloader | RanaUniverse@upi" />
-    <meta property="og:description"
-        content="Free Songs Download here with different formats | Developed By Rana Universe" />
-    <meta property="og:url" content="https://github.com/RanaUniverse" />
-    <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://avatars.githubusercontent.com/u/142967497?v=4">
-
-    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
-    <meta name="apple-mobile-web-app-title" content="Rana Universe 🍌🍌🍌" />
-
+    {%- include 'partials/_preview_metadata.html' -%}
     {% endblock %}
 
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
