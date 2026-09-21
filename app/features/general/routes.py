@@ -30,7 +30,9 @@ def home():
     )
 
 
+# This below will show the image of song and so on data
 @general_bp.get("/api/suno/proxy")
+# @login_required
 def get_proxy():
 
     target_url = request.args.get("url")
@@ -45,7 +47,12 @@ def get_proxy():
 
 
 @general_bp.post("/api/RanaUniverse/rights")
+# @login_required
 def get_rights():
+    """
+    This is the original thigns it help to download the songs so
+    i need to make logic here to send the user back the song or not
+    """
     try:
         data = request.get_json()
 
@@ -82,7 +89,9 @@ def dashboard():
         user_data = {  # type: ignore #TODO later i will add a class to represent data
             "full_name": getattr(domain_user, "full_name", "R Universe"),
             "email": getattr(domain_user, "email", "rana@example.com"),
-            "last_login_time": getattr(domain_user, "last_login_time", "Today, 4:15 PM"),
+            "last_login_time": getattr(
+                domain_user, "last_login_time", "Today, 4:15 PM"
+            ),
             "is_verified": getattr(domain_user, "is_verified", True),
             "profile_pic": "https://avatars.githubusercontent.com/u/142967497?v=4",
             "total_stars": 150,
@@ -115,5 +124,26 @@ def dashboard():
             ],
         }
         return render_template("dashboard.html", user=user_data)
-    
+
     return render_template("dashboard_locked.html")
+
+
+@general_bp.route("/api/RanaUniverse/save-song-info", methods=["POST"])
+def save_song_info():
+    data = request.get_json() or {}
+
+    # Extract the fields sent from frontend JS
+    song_id = data.get("id")
+    title = data.get("title")
+    image_url = data.get("image_url")
+    artist = data.get("artist")
+
+    # Print them out to your server terminal safely
+    print("🎵 Received Song from Frontend:")
+    print(f" - ID: {song_id}")
+    print(f" - Title: {title}")
+    print(f" - Image URL: {image_url}")
+    print(f" - Artist: {artist}")
+
+    # CRITICAL: Always return a valid JSON response, never a raw string like "xxx"
+    return jsonify({"status": "success", "message": "Song info logged on server!"})

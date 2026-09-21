@@ -1,3 +1,40 @@
+function sendSongInfoToFlask(payload) {
+    // 🍌 Automatically grab the CSRF token from base.html
+    var csrfMeta = document.querySelector('meta[name="csrf-token"]');
+    var csrfToken = csrfMeta ? csrfMeta.getAttribute('content') : '';
+
+    fetch('/api/RanaUniverse/save-song-info', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrfToken // Securely passes Flask-WTF validation
+        },
+        body: JSON.stringify(payload),
+    })
+        .then(function (response) {
+            var contentType = response.headers.get("content-type");
+            if (contentType && contentType.indexOf("application/json") !== -1) {
+                return response.json();
+            } else {
+                return response.text().then(function (text) {
+                    throw new Error("Server returned non-JSON response: " + text);
+                });
+            }
+        })
+        .then(function (data) {
+            console.log("Server response:", data);
+            if (typeof showToast === "function") {
+                showToast("🎵 Song info successfully logged to Flask!", "ok");
+            }
+        })
+        .catch(function (error) {
+            console.error("Failed to sync song info with Flask:", error);
+        });
+}
+
+
+
+
 (function () {
     function parseSunoLink(raw) {
         var value = String(raw || "").trim();
@@ -1100,6 +1137,15 @@
                 applyUrls(id, clip);
                 setStatus(statusWhenReady(), "ok");
                 showToast("🎵 Song is Ready To Download!", "ok");
+
+                // 🚀 Send song details & image URL to your Flask backend here!
+                sendSongInfoToFlask({
+                    id: clip.id || id,
+                    title: clip.title || "",
+                    image_url: clip.image_url || urls.cover || "",
+                    artist: clip.display_name || clip.handle || ""
+                });
+
             }
         } catch (err) {
             if (err && err.name === "AbortError") return;
@@ -1807,7 +1853,7 @@
             }
         });
 
-        
+
     // if (exampleTry && exampleLink)
     //     exampleTry.addEventListener("click", function () {
     //         input.value = exampleLink.href;
@@ -2102,3 +2148,5 @@
         if (submitBtn) submitBtn.click();
     }
 })();
+
+
