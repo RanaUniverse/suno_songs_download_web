@@ -1388,11 +1388,14 @@ body.dl-modal-open {
     height: 42px;
     flex: 0 0 42px;
     box-sizing: border-box;
-    border: 3px solid rgba(var(--overlay-rgb), 0.1);
+    border: 13px solid rgba(255, 255, 255, 0.12);
     border-top-color: var(--success-text);
     border-radius: 50%;
     animation: dlProcessingSpin 850ms linear infinite;
 }
+
+
+
 
 @keyframes dlProcessingSpin {
     to {
@@ -1419,7 +1422,9 @@ body.dl-modal-open {
     height: 8px;
     overflow: hidden;
     border-radius: 999px;
-    background: rgba(var(--overlay-rgb), 0.08);
+    background: rgba(255, 255, 255, 0.08);
+    margin-top: 14px;
+    margin-bottom: 8px;
 }
 
 .dl-processing-bar {
@@ -1448,8 +1453,8 @@ body.dl-modal-open {
 .dl-processing-detail {
     min-height: 1.4em;
     margin: 9px 0 0;
-    color: var(--text-dim);
-    font: 600 0.74rem/1.4 var(--mono);
+    color: #9ca3af;
+    font: 600 0.74rem/1.4 var(--mono, monospace);
     text-align: right;
 }
 
