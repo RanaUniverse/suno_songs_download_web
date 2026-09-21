@@ -702,7 +702,7 @@ def set_password(
 def logout():
     logout_user()
     flash(
-        message="You have been logout goodly",
-        category="danger",
+        message="👋 You've been successfully logged out. See you again soon! 🚀",
+        category="success",  # Using 'success' or 'info' feels friendlier than a harsh 'danger' flash for logging out
     )
     return redirect(location=url_for("general_bp.home"))

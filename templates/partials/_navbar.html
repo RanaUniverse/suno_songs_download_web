@@ -13,7 +13,6 @@ My navbar will be here
                 <span>Download Ai Songs</span>
             </a>
 
-
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -22,7 +21,9 @@ My navbar will be here
                 <ul class="navbar-nav ms-auto">
 
                     <li class="nav-item">
-                        <a class="nav-link btn btn-primary my-2 my-lg-0 ms-lg-2 active" href="/">🏠 Home</a>
+                        <a class="nav-link btn btn-primary my-2 my-lg-0 ms-lg-2 " href="/">
+                            🏠 Home
+                        </a>
                     </li>
 
                     <li class="nav-item">
@@ -33,24 +34,22 @@ My navbar will be here
 
                     {% if current_user.is_authenticated %}
 
-
                     <li class="nav-item">
-                        <a class="btn btn-danger my-2 my-lg-0 ms-lg-2" href="/logout">
-                            <a class="nav-link" href="/logout">
-                                🏃‍♂️ Logout
-                            </a>
+                        <a class="btn btn-primary my-2 my-lg-0 ms-lg-2" href="/logout">
+                            🏃‍♂️ Logout
+                        </a>
                     </li>
 
                     {% else %}
 
                     <li class="nav-item">
-                        <a class="btn btn-primary my-2 my-lg-0 ms-lg-2" href="/login">
+                        <a class="nav-link btn btn-primary my-2 my-lg-0 ms-lg-2" href="/login">
                             🔑 Login
                         </a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="btn btn-primary my-2 my-lg-0 ms-lg-2" href="/register">
+                        <a class="nav-link btn btn-primary my-2 my-lg-0 ms-lg-2" href="/register">
                             🚀 Register
                         </a>
                     </li>
