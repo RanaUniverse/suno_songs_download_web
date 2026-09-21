@@ -1120,7 +1120,7 @@
 
         var targetSection = document.getElementById("dl-download-section");
         if (!targetSection) return;
-        
+
         window.requestAnimationFrame(function () {
             var y =
                 targetSection.getBoundingClientRect().top +
@@ -1807,12 +1807,37 @@
             }
         });
 
-    if (exampleTry && exampleLink)
+        
+    // if (exampleTry && exampleLink)
+    //     exampleTry.addEventListener("click", function () {
+    //         input.value = exampleLink.href;
+    //         if (form.requestSubmit) form.requestSubmit();
+    //         else submitBtn.click();
+    //     });
+
+
+    if (exampleTry && exampleLink) {
         exampleTry.addEventListener("click", function () {
-            input.value = exampleLink.href;
+            // Get the demo links array 
+            var demoLinks = (window.RANA_CONFIG && window.RANA_CONFIG.DEMO_SONGS_LINKS) || [exampleLink.href];
+
+            // Pick a random link from the list
+            var randomIndex = Math.floor(Math.random() * demoLinks.length);
+            var chosenUrl = demoLinks[randomIndex];
+
+            // Populate the input and update the example link UI
+            input.value = chosenUrl;
+            exampleLink.href = chosenUrl;
+            exampleLink.textContent = chosenUrl;
+
             if (form.requestSubmit) form.requestSubmit();
             else submitBtn.click();
         });
+    }
+
+
+
+
 
     if (playlistModal) {
         playlistModal.addEventListener("click", function (e) {
