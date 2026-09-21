@@ -933,12 +933,6 @@
                 c.title = "Download lyrics";
             }
 
-            // if (kind === "audio") {
-            //   c.title = "Choose MP3, WAV or original audio";
-            // }
-            // var sub = c.querySelector(".dl-chip-sub");
-            // sub.textContent = kind === "audio" ? selectedAudioLabel() : kind === "mp4" ? "MP4" : kind === "lyrics" ? "TXT" : "JPEG";
-
             if (kind === "audio" && !c.hasAttribute("data-audio-format")) {
                 c.title = "Choose MP3, WAV or original audio";
             }
@@ -1105,6 +1099,7 @@
                 render(clip);
                 applyUrls(id, clip);
                 setStatus(statusWhenReady(), "ok");
+                showToast("🎵 Song is Ready To Download!", "ok");
             }
         } catch (err) {
             if (err && err.name === "AbortError") return;
@@ -1122,9 +1117,13 @@
             getComputedStyle(document.documentElement).getPropertyValue("--nav-h"),
         );
         if (!isFinite(navHeight) || navHeight < 0) navHeight = 60;
+
+        var targetSection = document.getElementById("dl-download-section");
+        if (!targetSection) return;
+        
         window.requestAnimationFrame(function () {
             var y =
-                hero.getBoundingClientRect().top +
+                targetSection.getBoundingClientRect().top +
                 window.pageYOffset -
                 (navHeight + 16);
             window.scrollTo({
@@ -1725,6 +1724,7 @@
                     lookupToken === lookupSerial &&
                     !hero.classList.contains("dl-hidden")
                 ) {
+                    // i will want to change this to the songs list of download
                     scrollToSongCard();
                 }
             })

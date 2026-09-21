@@ -27,15 +27,16 @@ How my buttons will looks like
 <button type="button"
     class="dl-chip dl-audio-format-choice text-start rounded-4 d-flex flex-column gap-1 shadow-sm border border-3 border-primary"
     data-kind="audio" data-audio-format="{{ format }}" title="{{ title }}">
-    <strong>{{ heading }}</strong>
+    <strong>
+        {{ heading }} (<span class="dl-chip-sub">{{ sub }}</span>)
+    </strong>
     <span class="small">{{ desc }}</span>
-    <span class="dl-chip-sub">{{ sub }}</span>
 </button>
 {% endmacro %}
 
 
 <section class="dl-section dl-hidden" id="dl-download-section">
-    <p class="dl-section-label">
+    <p class="dl-section-label text-center">
         Please Choose Any Option Below:
     </p>
     <div class="d-flex flex-column gap-3" id="dl-rail">
