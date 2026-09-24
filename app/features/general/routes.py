@@ -206,7 +206,7 @@ def song_download():
     if message is not None:
         if action == "later":
             flash(
-                message="Your Song Will Download After 5 Second",
+                message="Please Wait & Choose The Button to Download The Song",
                 category="warning",
             )
 

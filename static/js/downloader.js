@@ -2163,7 +2163,7 @@ function sendSongInfoToFlask(payload) {
         console.log("🔍 Auto-download action time/mode detected:", actionValue);
 
         if (actionValue === "now") {
-            console.log("⚡ Mode is 'now': Submitting instantly...");
+            console.log("⚡ Mode is 'now': Submitting instantly and then song will download...");
 
             setTimeout(function () {
                 if (form.requestSubmit) {
@@ -2174,7 +2174,7 @@ function sendSongInfoToFlask(payload) {
             }, 0);
 
         } else if (actionValue === "later") {
-            console.log("⏳ Mode is 'later': Waiting before submitting...");
+            console.log("⏳ Mode is 'later': Waiting before submitting and user will need to select...");
 
             setTimeout(function () {
                 if (form.requestSubmit) {
@@ -2182,12 +2182,11 @@ function sendSongInfoToFlask(payload) {
                 } else {
                     submitBtn.click();
                 }
-            }, 5000);
+            }, 500);
 
         } else {
             console.log("📌 Default mode: No explicit action matched, running standard 1-second delay.");
 
-            // Fallback default delay (e.g., 1 second)
             setTimeout(function () {
                 if (form.requestSubmit) {
                     form.requestSubmit();
@@ -2197,6 +2196,42 @@ function sendSongInfoToFlask(payload) {
             }, 1000);
         }
     }
-})();
 
+
+
+    // Clean up and read the action value (e.g., "now" or "later")
+    var actionValue = autoTimeInput ? autoTimeInput.value.trim().toLowerCase() : "";
+
+    if (dlSection && actionValue === "now") {
+        var observer = new MutationObserver(function (mutations, obs) {
+            // Check when the section is no longer hidden (meaning the song options are loaded)
+            if (!dlSection.classList.contains("dl-hidden")) {
+                obs.disconnect(); // Stop observing once triggered
+
+                console.log("🎵 Song is loaded and download buttons are visible!");
+
+                // Inform the user via toast
+                if (typeof showToast === "function") {
+                    showToast("⚡ Downloading original song automatically...", "ok");
+                }
+
+                // Wait 1 second, then automatically click the original audio button
+                setTimeout(function () {
+                    var originalAudioBtn = document.querySelector('[data-audio-format="original"]');
+
+                    if (originalAudioBtn) {
+                        console.log("🚀 Automatically clicking the Original Audio button now!");
+                        originalAudioBtn.click(); // Simulates the user's click!
+                    } else {
+                        console.error("❌ Original Audio button could not be found.");
+                    }
+                }, 1000);
+            }
+        });
+
+        // Start watching the download section for class changes
+        observer.observe(dlSection, { attributes: true, attributeFilter: ["class"] });
+    }
+
+})();
 
