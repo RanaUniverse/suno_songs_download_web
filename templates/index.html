@@ -4,8 +4,7 @@ index.html
 This is the main page to shows to give the link of the song
 #}
 
-
-{% extends 'base.html' %}
+{%- extends 'base.html' -%}
 
 {% block title %}
 Free Ai Songs Downloader - Rana Universe
@@ -22,6 +21,13 @@ Free Ai Songs Downloader - Rana Universe
 
 {% block content %}
 
+{% if auto_song_download_link %}
+<input type="hidden" id="auto-song-download-link" value="{{ auto_song_download_link }}">
+{% endif %}
+
+{% if action_time %}
+<input type="hidden" id="auto-song-download-time" value="{{ action_time }}">
+{% endif %}
 
 <div class="container mt-5">
   <div class="dl-shell">

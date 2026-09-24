@@ -4,7 +4,13 @@ app/features/general/routes.py
 Normal related main parts of my logics will be here
 """
 
-from flask import Blueprint, render_template, request, jsonify
+from flask import (
+    Blueprint,
+    render_template,
+    request,
+    jsonify,
+    flash,
+)
 
 from flask_login import (  # type: ignore
     login_required,  # type: ignore
@@ -130,13 +136,22 @@ def dashboard():
 
 @general_bp.route("/api/RanaUniverse/save-song-info", methods=["POST"])
 def save_song_info():
-    data = request.get_json() or {}
-
-    # Extract the fields sent from frontend JS
+    data: dict[str, str] = request.get_json() or {}
     song_id = data.get("id")
     title = data.get("title")
     image_url = data.get("image_url")
     artist = data.get("artist")
+    # Basic validation: ensure at least an ID or title exists
+    if not song_id and not title:
+        return (
+            jsonify(
+                {
+                    "status": "error",
+                    "message": "No song data provided",
+                }
+            ),
+            400,
+        )
 
     # Print them out to your server terminal safely
     print("🎵 Received Song from Frontend:")
@@ -145,5 +160,67 @@ def save_song_info():
     print(f" - Image URL: {image_url}")
     print(f" - Artist: {artist}")
 
-    # CRITICAL: Always return a valid JSON response, never a raw string like "xxx"
-    return jsonify({"status": "success", "message": "Song info logged on server!"})
+    # Return valid JSON response back to JS
+    return (
+        jsonify(
+            {
+                "status": "success",
+                "message": f"Successfully logged '{title}' on server!",
+            }
+        ),
+        200,
+    )
+
+
+@general_bp.get("/song_download")
+def song_download():
+    """
+    Song download section when user will open a link directly here
+    """
+    song_url = request.args.get("url", "")
+    action = request.args.get("action", "")
+
+    if not song_url or not action:
+        flash(
+            message="Please Pass Valid Songs Details with action don't modefy this manually",
+            category="warning",
+        )
+        flash(
+            message="Please Contact Admins if This occurs again & again",
+            category="danger",
+        )
+
+        return render_template(
+            "index.html",
+            song_url="N/A",
+            action="Missing parameters",
+        )
+
+    if action == "now":
+        message = "Song is downloading now instantly!"
+    elif action == "later":
+        message = "Song scheduled for later download!"
+    else:
+        message = None
+
+    if message is not None:
+        if action == "later":
+            flash(
+                message="Your Song Will Download After 5 Second",
+                category="warning",
+            )
+
+        if action == "now":
+            flash(
+                message="Your Song will Download Soon",
+                category="primary",
+            )
+
+        return render_template(
+            "index.html",
+            action=action,
+            auto_song_download_link=song_url,
+            action_time=action,
+        )
+
+    return "Song will not download now"

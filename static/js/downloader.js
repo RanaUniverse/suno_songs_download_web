@@ -2140,12 +2140,62 @@ function sendSongInfoToFlask(payload) {
                 });
         });
 
-    var urlParam =
-        new URLSearchParams(location.search).get("url") ||
-        new URLSearchParams(location.search).get("id");
-    if (urlParam) {
-        input.value = urlParam;
-        if (submitBtn) submitBtn.click();
+    // var urlParam =
+    //     new URLSearchParams(location.search).get("url") ||
+    //     new URLSearchParams(location.search).get("id");
+    // if (urlParam) {
+    //     input.value = urlParam;
+    //     if (submitBtn) submitBtn.click();
+    // }
+
+    // Upper was automatically take the url form the url bar i dont want this
+
+    // i will get the link from the hidden tag from my html
+    var autoLinkInput = document.getElementById("auto-song-download-link");
+    var autoTimeInput = document.getElementById("auto-song-download-time");
+
+    // If the hidden auto-download link exists and has a value, use it
+    // Later i will want to have later = press the download button by me
+    if (autoLinkInput && autoLinkInput.value.trim()) {
+        input.value = autoLinkInput.value.trim();
+
+        var actionValue = autoTimeInput ? autoTimeInput.value.trim().toLowerCase() : "";
+        console.log("🔍 Auto-download action time/mode detected:", actionValue);
+
+        if (actionValue === "now") {
+            console.log("⚡ Mode is 'now': Submitting instantly...");
+
+            setTimeout(function () {
+                if (form.requestSubmit) {
+                    form.requestSubmit();
+                } else {
+                    submitBtn.click();
+                }
+            }, 0);
+
+        } else if (actionValue === "later") {
+            console.log("⏳ Mode is 'later': Waiting before submitting...");
+
+            setTimeout(function () {
+                if (form.requestSubmit) {
+                    form.requestSubmit();
+                } else {
+                    submitBtn.click();
+                }
+            }, 5000);
+
+        } else {
+            console.log("📌 Default mode: No explicit action matched, running standard 1-second delay.");
+
+            // Fallback default delay (e.g., 1 second)
+            setTimeout(function () {
+                if (form.requestSubmit) {
+                    form.requestSubmit();
+                } else {
+                    submitBtn.click();
+                }
+            }, 1000);
+        }
     }
 })();
 
