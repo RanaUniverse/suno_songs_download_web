@@ -2153,6 +2153,7 @@ function sendSongInfoToFlask(payload) {
     // i will get the link from the hidden tag from my html
     var autoLinkInput = document.getElementById("auto-song-download-link");
     var autoTimeInput = document.getElementById("auto-song-download-time");
+    var autoSongTypeInput = document.getElementById("auto-song-download-type");
 
     // If the hidden auto-download link exists and has a value, use it
     // Later i will want to have later = press the download button by me
@@ -2201,6 +2202,11 @@ function sendSongInfoToFlask(payload) {
 
     // Clean up and read the action value (e.g., "now" or "later")
     var actionValue = autoTimeInput ? autoTimeInput.value.trim().toLowerCase() : "";
+    var songFormat = autoSongTypeInput ? autoSongTypeInput.value.trim().toLowerCase() : "original";
+    // Security check: ensure it matches one of your actual button types
+    if (["original", "mp3", "wav"].indexOf(songFormat) === -1) {
+        songFormat = "original";
+    }
 
     if (dlSection && actionValue === "now") {
         var observer = new MutationObserver(function (mutations, obs) {
@@ -2217,15 +2223,16 @@ function sendSongInfoToFlask(payload) {
 
                 // Wait 1 second, then automatically click the original audio button
                 setTimeout(function () {
-                    var originalAudioBtn = document.querySelector('[data-audio-format="original"]');
+                    // Dynamically build the selector using our variable (e.g., '[data-audio-format="mp3"]')
+                    var targetAudioBtn = document.querySelector('[data-audio-format="' + songFormat + '"]');
 
-                    if (originalAudioBtn) {
-                        console.log("🚀 Automatically clicking the Original Audio button now!");
-                        originalAudioBtn.click(); // Simulates the user's click!
+                    if (targetAudioBtn) {
+                        console.log("🚀 Automatically clicking the " + songFormat.toUpperCase() + " button now!");
+                        targetAudioBtn.click(); // Triggers the corresponding button!
                     } else {
-                        console.error("❌ Original Audio button could not be found.");
+                        console.error("❌ Audio button for format '" + songFormat + "' could not be found.");
                     }
-                }, 1000);
+                }, 100);
             }
         });
 

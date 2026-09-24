@@ -179,6 +179,7 @@ def song_download():
     """
     song_url = request.args.get("url", "")
     action = request.args.get("action", "")
+    song_type = request.args.get("song_type", "original")
 
     if not song_url or not action:
         flash(
@@ -221,6 +222,7 @@ def song_download():
             action=action,
             auto_song_download_link=song_url,
             action_time=action,
+            song_type=song_type,
         )
 
     return "Song will not download now"
