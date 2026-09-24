@@ -47,10 +47,10 @@ def call_external_post_api_call(
             timeout=10,
         )
 
-        print("STATUS:", response.status_code)
-        print("URL:", response.url)
-        print("HEADERS:", dict(response.headers))
-        print("BODY:", response.text[:3000])
+        # print("STATUS:", response.status_code)
+        # print("URL:", response.url)
+        # print("HEADERS:", dict(response.headers))
+        # print("BODY:", response.text[:3000])
 
         response.raise_for_status()
 
@@ -93,7 +93,7 @@ def get_suno_proxy(
         timeout=10,
     )
 
-    print(response.url)  # see the dynamically generated URL
+    # print(response.url)  # see the dynamically generated URL
 
     response.raise_for_status()
 
