@@ -177,6 +177,8 @@ class Settings(BaseSettings):
 
     owner_name: str
 
+    telegram_bot_token: SecretStr
+
     app: AppSettings
     otp: OTPSettings
     mail: MailSettings = Field(repr=False)
