@@ -10,3 +10,6 @@ wheels/
 .venv
 .env
 local_database.db
+
+# This is the folder where my data will live
+data

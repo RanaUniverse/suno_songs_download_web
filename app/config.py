@@ -179,6 +179,9 @@ class Settings(BaseSettings):
 
     telegram_bot_token: SecretStr
 
+    log_filename: str = "LogFile.log"
+    data_foldername: str = "data"
+
     app: AppSettings
     otp: OTPSettings
     mail: MailSettings = Field(repr=False)
