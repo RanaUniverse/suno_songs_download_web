@@ -10,12 +10,15 @@ from urllib.parse import urlparse
 
 from telegram import MessageEntity
 
-TARGET_DOMAIN = "rana49.online"
+
+from app.config import settings
+
+SUNO_TARGET_DOMAIN = settings.suno_target_url
 
 
 def extract_valid_link_from_text(
     urls_dict: dict[MessageEntity, str],
-    target_domain: str = TARGET_DOMAIN,
+    target_domain: str = SUNO_TARGET_DOMAIN,
 ) -> tuple[bool, str]:
     """
     If this got match then it will give me true and the link,
@@ -34,7 +37,7 @@ def extract_valid_link_from_text(
         parsed_url = urlparse(formatted_url)
         domain = parsed_url.netloc.lower()
 
-        if domain == TARGET_DOMAIN or domain.endswith(f".{TARGET_DOMAIN}"):
+        if domain == SUNO_TARGET_DOMAIN or domain.endswith(f".{SUNO_TARGET_DOMAIN}"):
             valid_url = formatted_url
             break
 

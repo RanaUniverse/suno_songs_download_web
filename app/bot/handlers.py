@@ -13,28 +13,9 @@ from telegram.ext import (
 
 from app.config import settings
 from app.logger_related import RanaLogger
-from app.bot.utils import extract_valid_link_from_text, TARGET_DOMAIN
+from app.bot.utils import extract_valid_link_from_text, SUNO_TARGET_DOMAIN
 
 BOT_TOKEN = settings.telegram_bot_token.get_secret_value()
-
-
-async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-
-    user = update.effective_user
-
-    if not user:
-        RanaLogger.error("Could not retrieve effective user from update.")
-        return
-
-    welcome_message = (
-        f"Hey <b>{user.full_name}</b>! 👋\n\n"
-        "Welcome! You've successfully started the bot. Thanks for connecting! 🚀"
-    )
-
-    await context.bot.send_message(
-        chat_id=user.id,
-        text=welcome_message,
-    )
 
 
 async def caps(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -63,22 +44,6 @@ async def caps(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(
         update.effective_user.id,
         response_text,
-    )
-
-
-async def echo(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    """
-    This function will only say the same word the user has say to bot
-    """
-    if not update.effective_chat:
-        return
-
-    if not update.message or not update.message.text:
-        return
-
-    await context.bot.send_message(
-        chat_id=update.effective_chat.id,
-        text=update.message.text,
     )
 
 
@@ -113,7 +78,7 @@ async def get_url_from_message(update: Update, context: ContextTypes.DEFAULT_TYP
 
     # 3. Respond based on the results
     if not is_valid:
-        txt = f"⚠️ Your link ie, <code>{final_url}</code> does not match our main link (ie. <b>{TARGET_DOMAIN}</b>)."
+        txt = f"⚠️ Your link ie, <code>{final_url}</code> does not match our main link (ie. <b>{SUNO_TARGET_DOMAIN}</b>)."
     else:
         txt = f"✅ Success! You sent a valid URL:\n<code>{final_url}</code>"
 

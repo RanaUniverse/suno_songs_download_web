@@ -179,6 +179,10 @@ class Settings(BaseSettings):
 
     telegram_bot_token: SecretStr
 
+    suno_target_url: str = "suno.com"
+
+    suno_downloader_url: str = "s1.rana49.online"
+
     log_filename: str = "LogFile.log"
     data_foldername: str = "data"
 
