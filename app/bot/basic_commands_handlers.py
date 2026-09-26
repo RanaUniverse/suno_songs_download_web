@@ -76,3 +76,19 @@ async def token_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
         return
 
     await message.reply_text(token_text)
+
+
+async def photo_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    """
+    Learning how to send photo to user via bot
+    """
+    msg = update.message
+
+    if not msg:
+        return
+
+    b = await msg.reply_photo(
+        # photo="/home/rana/Pictures/linux_logo.png",
+        photo="https://avatars.githubusercontent.com/u/142967497?v=4",
+    )
+    print(b)

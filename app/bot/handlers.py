@@ -4,7 +4,11 @@ app/bot/handlers.py
 Here i will write some handlers code which i will use
 """
 
+from html import escape
+
+
 from telegram import Update, MessageEntity
+from telegram.constants import ChatAction
 
 
 from telegram.ext import (
@@ -18,6 +22,8 @@ from app.utils import get_random_demo_songs_links
 
 
 from app.utils import generate_song_download_url
+
+from app.shared.song_info import fetch_basic_suno_song_data
 
 BOT_TOKEN = settings.telegram_bot_token.get_secret_value()
 
@@ -59,13 +65,11 @@ async def get_url_from_message(update: Update, context: ContextTypes.DEFAULT_TYP
     to match this with my base_url ie target_url
     """
 
-    message = update.message
+    message = update.effective_message
+    chat = update.effective_chat
 
-    if not update.effective_chat:
-        return
-
-    if not message or not message.text:
-        RanaLogger.warning("Message should present when in text")
+    if not message or not chat:
+        RanaLogger.warning("Message & Chat should present when in text")
         return
 
     # https://docs.python-telegram-bot.org/en/stable/telegram.message.html#telegram.Message.parse_entities
@@ -98,23 +102,50 @@ async def get_url_from_message(update: Update, context: ContextTypes.DEFAULT_TYP
         )
         return
 
-    now_song_download_link = generate_song_download_url(
-        song_url=final_url, action="now"
-    )
-    later_song_download_link = generate_song_download_url(
-        song_url=final_url, action="later"
-    )
+    # now_song_download_link = generate_song_download_url(
+    #     song_url=final_url, action="now"
+    # )
+    # later_song_download_link = generate_song_download_url(
+    #     song_url=final_url, action="later"
+    # )
 
     txt = (
         f"✅ <b>Valid URL Recognized!</b> 🎉\n\n"
         f"🔗 <b>Your Song Link:</b>\n<code>{final_url}</code>\n\n"
         f"📥 <b>Choose your download option:</b>\n"
-        f"• ⚡ <a href='{now_song_download_link}'><b>Download Now</b></a> (Instant processing)\n\n\n"
-        f"• 🕒 <a href='{later_song_download_link}'><b>Download Later</b></a> (Save to queue)\n\n"
-        f"<i>Tap a link above to grab your Suno track! 🎶</i>"
+        f"Please Wait, We Are Fetching Songs Details And sending below.\n"
+        f"Loading..."
+        # f"• ⚡ <a href='{now_song_download_link}'><b>Download Now</b></a> (Instant processing)\n\n\n"
+        # f"• 🕒 <a href='{later_song_download_link}'><b>Download Later</b></a> (Save to queue)\n\n"
+        # f"<i>Tap a link above to grab your Suno track! 🎶</i>"
     )
 
-    await context.bot.send_message(
-        chat_id=update.effective_chat.id,
+    await message.reply_text(
         text=txt,
+    )
+    await message.reply_chat_action(
+        action=ChatAction.UPLOAD_PHOTO,
+    )
+
+    song_data = fetch_basic_suno_song_data(
+        target_url=final_url,
+    )
+
+    song_title = escape(song_data.title)
+    song_id = escape(song_data.id)
+
+    caption = (
+        "🎵 <b>Song Details</b>\n"
+        "━━━━━━━━━━━━━━━━━━\n\n"
+        f"🎧 <b>Title:</b> <i>{song_title}</i>\n\n"
+        f"🆔 <b>Song ID:</b>\n"
+        f"<code>{song_id}</code>\n\n"
+        "✨ <b>Your song is ready!</b>\n"
+        "📥 Choose an option below to continue.\n\n"
+        "🎶 <i>Enjoy your music!</i>"
+    )
+    await message.reply_photo(
+        photo=song_data.image_url,
+        caption=caption,
+        do_quote=True,
     )

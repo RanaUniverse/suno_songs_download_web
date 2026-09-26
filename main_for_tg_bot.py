@@ -22,6 +22,7 @@ from app.bot.basic_commands_handlers import (
     about_command,
     settings_command,
     token_command,
+    photo_command,
 )
 
 from app.bot.making_application import application
@@ -38,6 +39,7 @@ if __name__ == "__main__":
     about_handler = CommandHandler("about", about_command)
     settings_handler = CommandHandler("settings", settings_command)
     token_handler = CommandHandler("token", token_command)
+    photo_handler = CommandHandler("photo", photo_command)
 
     application.add_handler(start_handler)
     application.add_handler(echo_handler)
@@ -46,5 +48,6 @@ if __name__ == "__main__":
     application.add_handler(about_handler)
     application.add_handler(settings_handler)
     application.add_handler(token_handler)
+    application.add_handler(photo_handler)
 
     application.run_polling()
