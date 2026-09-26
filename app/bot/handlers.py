@@ -7,9 +7,9 @@ Here i will write some handlers code which i will use
 from html import escape
 
 
-from telegram import Update, MessageEntity
+from telegram import Update, MessageEntity, LinkPreviewOptions
 from telegram.constants import ChatAction
-
+from telegram.error import BadRequest, TelegramError
 
 from telegram.ext import (
     ContextTypes,
@@ -97,7 +97,7 @@ async def get_url_from_message(update: Update, context: ContextTypes.DEFAULT_TYP
             f"{links_formatted}"
         )
         await context.bot.send_message(
-            chat_id=update.effective_chat.id,
+            chat_id=chat.id,
             text=txt,
         )
         return
@@ -110,19 +110,28 @@ async def get_url_from_message(update: Update, context: ContextTypes.DEFAULT_TYP
     # )
 
     txt = (
-        f"✅ <b>Valid URL Recognized!</b> 🎉\n\n"
-        f"🔗 <b>Your Song Link:</b>\n<code>{final_url}</code>\n\n"
-        f"📥 <b>Choose your download option:</b>\n"
-        f"Please Wait, We Are Fetching Songs Details And sending below.\n"
-        f"Loading..."
-        # f"• ⚡ <a href='{now_song_download_link}'><b>Download Now</b></a> (Instant processing)\n\n\n"
-        # f"• 🕒 <a href='{later_song_download_link}'><b>Download Later</b></a> (Save to queue)\n\n"
-        # f"<i>Tap a link above to grab your Suno track! 🎶</i>"
+        f"🎵 <b>Song Link Received!</b> ✨\n\n"
+        f"🔗 <b>Source URL</b>\n"
+        f'🔗 <a href="{final_url}"><b>Open Song in Suno App</b></a>\n\n'
+        f"━━━━━━━━━━━━━━━━━━\n\n"
+        f"🔍 <b>Fetching song details...</b>\n\n"
+        f"⏳ Please wait while I:\n"
+        f"• 🎧 Identify the song\n"
+        f"• 🖼️ Fetch the cover artwork\n"
+        f"• 🎵 Prepare the audio details\n"
+        f"• 📥 Get everything ready for you\n\n"
+        f"━━━━━━━━━━━━━━━━━━\n\n"
+        f"🚀 <i>Almost there! Your song details will appear below shortly...</i> 🎶"
+    )
+    # f"• ⚡ <a href='{now_song_download_link}'><b>Download Now</b></a> (Instant processing)\n\n\n"
+    # f"• 🕒 <a href='{later_song_download_link}'><b>Download Later</b></a> (Save to queue)\n\n"
+    # f"<i>Tap a link above to grab your Suno track! 🎶</i>"
+
+    wait_message = await message.reply_text(
+        text=txt,
+        do_quote=True,
     )
 
-    await message.reply_text(
-        text=txt,
-    )
     await message.reply_chat_action(
         action=ChatAction.UPLOAD_PHOTO,
     )
@@ -130,9 +139,39 @@ async def get_url_from_message(update: Update, context: ContextTypes.DEFAULT_TYP
     song_data = fetch_basic_suno_song_data(
         target_url=final_url,
     )
+    print(
+        "Song Data for checking",
+        song_data,
+    )
 
     song_title = escape(song_data.title)
     song_id = escape(song_data.id)
+
+    # Below condition is when the suno dont recognize the music
+    # that's why they send sometime random id
+    if song_data.title.strip() == "Suno | AI Music Generator":
+        print("❌ This does not appear to be a valid song.")
+
+        suno_song_url = f"https://suno.com/song/{song_data.id}"
+
+        text = (
+            "❌ <b>Song Not Found</b>\n\n"
+            "The URL you sent does not appear to point to a valid "
+            "Suno song.\n\n"
+            f"🆔 <b>Instead You Can Check This ID:</b>\n"
+            f"<code>{escape(song_data.id)}</code>\n\n"
+            f"🔗 <b>Suno URL:</b>\n"
+            f'<a href="{escape(suno_song_url)}">{escape(suno_song_url)}</a>\n\n'
+            "📩 Please send a valid Suno song URL and try again."
+        )
+
+        await message.reply_text(
+            text=text,
+            do_quote=True,
+            link_preview_options=LinkPreviewOptions(is_disabled=True),
+        )
+
+        return
 
     caption = (
         "🎵 <b>Song Details</b>\n"
@@ -144,8 +183,32 @@ async def get_url_from_message(update: Update, context: ContextTypes.DEFAULT_TYP
         "📥 Choose an option below to continue.\n\n"
         "🎶 <i>Enjoy your music!</i>"
     )
-    await message.reply_photo(
-        photo=song_data.image_url,
-        caption=caption,
-        do_quote=True,
-    )
+
+    try:
+        await message.reply_photo(
+            photo=song_data.image_url,
+            caption=caption,
+            parse_mode="HTML",
+            do_quote=True,
+        )
+        await wait_message.delete()
+
+    except BadRequest as e:
+        print(f"❌ Telegram could not send the image: {e}")
+
+        await message.reply_text(
+            "❌ <b>Couldn't Process This Song</b>\n\n"
+            "It looks like this link is <b>invalid, unavailable, "
+            "or no longer accessible</b>.\n\n"
+            "🔗 Please send a valid <b>Suno song URL</b> and try again.\n\n"
+            "🎵 <i>Send the song link again to continue.</i>",
+            do_quote=True,
+        )
+
+    except TelegramError as e:
+        print(f"❌ Telegram error while sending photo: {e}")
+
+        await message.reply_text(
+            caption,
+            do_quote=True,
+        )
