@@ -12,6 +12,7 @@ from flask import (
     flash,
 )
 
+
 from flask_login import (  # type: ignore
     login_required,  # type: ignore
     current_user,
@@ -21,6 +22,8 @@ import requests
 
 
 from app.external_service import call_external_post_api_call, get_suno_proxy
+
+from app.shared.song_info import fetch_basic_suno_song_data
 
 general_bp = Blueprint(
     name="general_bp",
@@ -226,3 +229,31 @@ def song_download():
         )
 
     return "Song will not download now"
+
+
+@general_bp.route("/demo_song_download")
+def song_download_new():
+
+    target_url = request.args.get("url")
+    action = request.args.get("action", "now")
+
+    song_type = request.args.get("song_type", "original")
+    if not target_url:
+        return "None"
+
+    # Call the helper function which now returns our SunoSongData object
+    song_data = fetch_basic_suno_song_data(target_url)
+
+    print(
+        "🐍 Server-side successfully parsed song info (Dataclass):",
+        song_data,
+    )
+
+    return render_template(
+        "index.html",
+        auto_song_download=True,
+        target_url=target_url,
+        action_time=action,
+        song_type=song_type,
+        song_data=song_data.to_dict(),
+    )
