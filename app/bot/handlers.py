@@ -14,6 +14,7 @@ from telegram.ext import (
 from app.config import settings
 from app.logger_related import RanaLogger
 from app.bot.utils import extract_valid_link_from_text, SUNO_TARGET_DOMAIN
+from app.utils import get_random_demo_songs_links
 
 
 from app.utils import generate_song_download_url
@@ -79,14 +80,23 @@ async def get_url_from_message(update: Update, context: ContextTypes.DEFAULT_TYP
 
     is_valid, final_url = extract_valid_link_from_text(urls_dict)
 
-    # 3. Respond based on the results
     if not is_valid:
-        txt = f"⚠️ Your link ie, <code>{final_url}</code> does not match our main link (ie. <b>{SUNO_TARGET_DOMAIN}</b>)."
+        random_songs = get_random_demo_songs_links(3)
+        links_formatted = "\n".join([f"<code>{link}</code>" for link in random_songs])
 
+        txt = (
+            f"⚠️ <b>Invalid Link Detected!</b>\n\n"
+            f"Your link (<code>{final_url}</code>) does not match our platform (<b>{SUNO_TARGET_DOMAIN}</b>).\n\n"
+            f"💡 <i>Please send a valid song link directly from our website.</i>\n\n"
+            f"Send Me Back Any Link From the Given List."
+            f"📋 <b>Try copying one of these working demo links to test:</b>\n"
+            f"{links_formatted}"
+        )
         await context.bot.send_message(
             chat_id=update.effective_chat.id,
             text=txt,
         )
+        return
 
     now_song_download_link = generate_song_download_url(
         song_url=final_url, action="now"
