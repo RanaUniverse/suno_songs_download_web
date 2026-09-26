@@ -174,8 +174,9 @@ async def get_url_from_message(update: Update, context: ContextTypes.DEFAULT_TYP
         return
 
     caption = (
-        "🎵 <b>Song Details</b>\n"
-        "━━━━━━━━━━━━━━━━━━\n\n"
+        "🎵 <b>Song Details</b>\n\n"
+        f"🔗 <a href='{final_url}'><b>Open Song in Suno App</b></a>\n\n"
+        f"━━━━━━━━━━━━━━━━━━\n\n"
         f"🎧 <b>Title:</b> <i>{song_title}</i>\n\n"
         f"🆔 <b>Song ID:</b>\n"
         f"<code>{song_id}</code>\n\n"
