@@ -181,7 +181,10 @@ class Settings(BaseSettings):
 
     suno_target_url: str = "suno.com"
 
-    suno_downloader_url: str = "s1.rana49.online"
+    suno_downloader_url: str = Field(
+        default="s1.rana49.online",
+        description="This is the url where my this suno related webapp will be hosted",
+    )
 
     log_filename: str = "LogFile.log"
     data_foldername: str = "data"

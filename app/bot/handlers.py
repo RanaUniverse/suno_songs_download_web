@@ -15,6 +15,9 @@ from app.config import settings
 from app.logger_related import RanaLogger
 from app.bot.utils import extract_valid_link_from_text, SUNO_TARGET_DOMAIN
 
+
+from app.utils import generate_song_download_url
+
 BOT_TOKEN = settings.telegram_bot_token.get_secret_value()
 
 
@@ -79,8 +82,27 @@ async def get_url_from_message(update: Update, context: ContextTypes.DEFAULT_TYP
     # 3. Respond based on the results
     if not is_valid:
         txt = f"⚠️ Your link ie, <code>{final_url}</code> does not match our main link (ie. <b>{SUNO_TARGET_DOMAIN}</b>)."
-    else:
-        txt = f"✅ Success! You sent a valid URL:\n<code>{final_url}</code>"
+
+        await context.bot.send_message(
+            chat_id=update.effective_chat.id,
+            text=txt,
+        )
+
+    now_song_download_link = generate_song_download_url(
+        song_url=final_url, action="now"
+    )
+    later_song_download_link = generate_song_download_url(
+        song_url=final_url, action="later"
+    )
+
+    txt = (
+        f"✅ <b>Valid URL Recognized!</b> 🎉\n\n"
+        f"🔗 <b>Your Song Link:</b>\n<code>{final_url}</code>\n\n"
+        f"📥 <b>Choose your download option:</b>\n"
+        f"• ⚡ <a href='{now_song_download_link}'><b>Download Now</b></a> (Instant processing)\n\n\n"
+        f"• 🕒 <a href='{later_song_download_link}'><b>Download Later</b></a> (Save to queue)\n\n"
+        f"<i>Tap a link above to grab your Suno track! 🎶</i>"
+    )
 
     await context.bot.send_message(
         chat_id=update.effective_chat.id,
