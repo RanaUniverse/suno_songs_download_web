@@ -7,7 +7,7 @@ Here i will write some handlers code which i will use
 from html import escape
 
 
-from telegram import Update, MessageEntity, LinkPreviewOptions
+from telegram import Update, MessageEntity, LinkPreviewOptions, InlineKeyboardMarkup
 from telegram.constants import ChatAction
 from telegram.error import BadRequest, TelegramError
 
@@ -21,9 +21,8 @@ from app.bot.utils import extract_valid_link_from_text, SUNO_TARGET_DOMAIN
 from app.utils import get_random_demo_songs_links
 
 
-from app.utils import generate_song_download_url
-
 from app.shared.song_info import fetch_basic_suno_song_data
+from .keyboards import generate_dynamic_keyboard
 
 BOT_TOKEN = settings.telegram_bot_token.get_secret_value()
 
@@ -102,13 +101,6 @@ async def get_url_from_message(update: Update, context: ContextTypes.DEFAULT_TYP
         )
         return
 
-    # now_song_download_link = generate_song_download_url(
-    #     song_url=final_url, action="now"
-    # )
-    # later_song_download_link = generate_song_download_url(
-    #     song_url=final_url, action="later"
-    # )
-
     txt = (
         f"🎵 <b>Song Link Received!</b> ✨\n\n"
         f"🔗 <b>Source URL</b>\n"
@@ -123,13 +115,11 @@ async def get_url_from_message(update: Update, context: ContextTypes.DEFAULT_TYP
         f"━━━━━━━━━━━━━━━━━━\n\n"
         f"🚀 <i>Almost there! Your song details will appear below shortly...</i> 🎶"
     )
-    # f"• ⚡ <a href='{now_song_download_link}'><b>Download Now</b></a> (Instant processing)\n\n\n"
-    # f"• 🕒 <a href='{later_song_download_link}'><b>Download Later</b></a> (Save to queue)\n\n"
-    # f"<i>Tap a link above to grab your Suno track! 🎶</i>"
 
     wait_message = await message.reply_text(
         text=txt,
         do_quote=True,
+        link_preview_options=LinkPreviewOptions(is_disabled=True),
     )
 
     await message.reply_chat_action(
@@ -186,11 +176,13 @@ async def get_url_from_message(update: Update, context: ContextTypes.DEFAULT_TYP
     )
 
     try:
+        buttons = generate_dynamic_keyboard(final_url)
         await message.reply_photo(
             photo=song_data.image_url,
             caption=caption,
             parse_mode="HTML",
             do_quote=True,
+            reply_markup=InlineKeyboardMarkup(buttons),
         )
         await wait_message.delete()
 
